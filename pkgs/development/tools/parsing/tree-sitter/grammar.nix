@@ -21,7 +21,8 @@ stdenv.mkDerivation ({
 
   inherit src version;
 
-  nativeBuildInputs = lib.optionals generate [ nodejs tree-sitter ];
+  # nativeBuildInputs = lib.optionals generate [ nodejs tree-sitter ];
+  nativeBuildInputs = [ nodejs tree-sitter ];
 
   CFLAGS = [ "-Isrc" "-O2" ];
   CXXFLAGS = [ "-Isrc" "-O2" ];
@@ -30,8 +31,8 @@ stdenv.mkDerivation ({
 
   configurePhase = lib.optionalString (location != null) ''
     cd ${location}
-  '' + lib.optionalString generate ''
-    tree-sitter generate
+  '' + #lib.optionalString generate ''
+    ''tree-sitter generate --abi 13
   '';
 
   # When both scanner.{c,cc} exist, we should not link both since they may be the same but in
