@@ -31,7 +31,7 @@ stdenv.mkDerivation ({
   configurePhase = lib.optionalString (location != null) ''
     cd ${location}
   '' + lib.optionalString generate ''
-    tree-sitter generate
+    tree-sitter generate --abi 13
   '';
 
   # When both scanner.{c,cc} exist, we should not link both since they may be the same but in
